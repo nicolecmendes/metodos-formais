@@ -38,8 +38,14 @@ Ataque(attacker, receiver) ==
                         THEN 20
                         ELSE 10
     IN
-    /\ criaturas' = [criaturas EXCEPT ![receiver] = dano(receiver, damageAmount)]
+    /\ criaturas' = [c \in DOMAIN criaturas |-> 
+                     IF c = receiver
+                     THEN dano(c, damageAmount)  (*primeiro aplica o dano*)
+                     ELSE IF criaturas[attacker].classe = "clerigo" /\ criaturas[c].tipo = "personagem"
+                     THEN [criaturas[c] EXCEPT !.imunidade = FALSE]  (*se for o clerigo quem tiver atacando, remove a imunidade*)
+                     ELSE criaturas[c]] 
     /\ ultimoAtaque' = [attacker |-> attacker, receiver |-> receiver, type |-> "ataque", damage |-> damageAmount]
+
 
 (*imunidade - clerigo que dá imunidade, mas todos os personagens recebem*)
 Imunidade(attacker) ==
@@ -58,7 +64,6 @@ Init ==
     /\ proximo = 1         
     /\ round = 1
     /\ inicializado = FALSE
-
 
 Next ==
     IF ~inicializado (* o IF e essa variavel garante que os dados só sejam lançados quando o jogo começa *)
@@ -80,7 +85,7 @@ Next ==
             /\ criaturas[currentAttacker].paralisia = FALSE
             /\ \E action \in {"ataque", "imunidade"} :
                \/ (action = "ataque" /\ \E receiver \in possibleReceivers: Ataque(currentAttacker, receiver))
-               \/ (criaturas[currentAttacker].classe = "clerigo" /\ action = "imunidade" /\ \E receiver \in possibleReceivers: Imunidade(currentAttacker)) (*garanto que só o clerigo possa dar imunidade*)
+               \/ (criaturas[currentAttacker].classe = "clerigo" /\ action = "imunidade" /\ \E receiver \in possibleReceivers: Imunidade(currentAttacker))
             /\ proximo' = IF proximo < Len(ordemDeAtaque) THEN proximo + 1 ELSE 1
             /\ round' = IF proximo' = 1 THEN round + 1 ELSE round
             /\ UNCHANGED <<inicializado>>
