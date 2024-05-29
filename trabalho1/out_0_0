@@ -1,5 +1,5 @@
 ---------------- MODULE out_0_0 -----------------
-\* <Init line 91, col 5 to line 96, col 27 of module batalha>
+\* <Init line 118, col 5 to line 123, col 27 of module batalha>
 STATE_1 == 
 /\ criaturas = [ Mago |->
       [ classe |-> "mago",
@@ -7,6 +7,7 @@ STATE_1 ==
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> FALSE,
+        provocacao |-> "nenhuma",
         iniciativa |-> 0 ],
   Clerigo |->
       [ classe |-> "clerigo",
@@ -14,6 +15,7 @@ STATE_1 ==
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> FALSE,
+        provocacao |-> "nenhuma",
         iniciativa |-> 0 ],
   Barbaro |->
       [ classe |-> "barbaro",
@@ -21,6 +23,7 @@ STATE_1 ==
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> FALSE,
+        provocacao |-> "nenhuma",
         iniciativa |-> 0 ],
   Monstro |->
       [ classe |-> "monstro",
@@ -28,6 +31,7 @@ STATE_1 ==
         tipo |-> "monstros",
         paralisia |-> "nenhuma",
         imunidade |-> FALSE,
+        provocacao |-> "nenhuma",
         iniciativa |-> 0 ] ]
 /\ ultimoAtaque = [attacker |-> "", receiver |-> "", type |-> "", damage |-> 0, status |-> ""]
 /\ ordemDeAtaque = <<>>
@@ -36,7 +40,7 @@ STATE_1 ==
 /\ proximo = 1
 
 
-\* <Next line 99, col 5 to line 132, col 41 of module batalha>
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
 STATE_2 == 
 /\ criaturas = [ Mago |->
       [ classe |-> "mago",
@@ -44,28 +48,32 @@ STATE_2 ==
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> FALSE,
-        iniciativa |-> 11 ],
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
   Clerigo |->
       [ classe |-> "clerigo",
         hp |-> 20,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> FALSE,
-        iniciativa |-> 11 ],
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
   Barbaro |->
       [ classe |-> "barbaro",
         hp |-> 150,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> FALSE,
-        iniciativa |-> 12 ],
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
   Monstro |->
       [ classe |-> "monstro",
         hp |-> 100,
         tipo |-> "monstros",
         paralisia |-> "nenhuma",
         imunidade |-> FALSE,
-        iniciativa |-> 7 ] ]
+        provocacao |-> "nenhuma",
+        iniciativa |-> 19 ] ]
 /\ ultimoAtaque = [attacker |-> "", receiver |-> "", type |-> "", damage |-> 0, status |-> ""]
 /\ ordemDeAtaque = << [iniciativa |-> 0, id |-> "Mago"],
    [iniciativa |-> 0, id |-> "Clerigo"],
@@ -76,7 +84,7 @@ STATE_2 ==
 /\ proximo = 1
 
 
-\* <Next line 99, col 5 to line 132, col 41 of module batalha>
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
 STATE_3 == 
 /\ criaturas = [ Mago |->
       [ classe |-> "mago",
@@ -84,39 +92,43 @@ STATE_3 ==
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> FALSE,
-        iniciativa |-> 11 ],
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
   Clerigo |->
       [ classe |-> "clerigo",
         hp |-> 20,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> FALSE,
-        iniciativa |-> 11 ],
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
   Barbaro |->
       [ classe |-> "barbaro",
         hp |-> 150,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> FALSE,
-        iniciativa |-> 12 ],
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
   Monstro |->
       [ classe |-> "monstro",
-        hp |-> 90,
+        hp |-> 100,
         tipo |-> "monstros",
-        paralisia |-> "nenhuma",
+        paralisia |-> "temporaria",
         imunidade |-> FALSE,
-        iniciativa |-> 7 ] ]
-/\ ultimoAtaque = [attacker |-> "Mago", receiver |-> "Monstro", type |-> "ataque", damage |-> 10]
-/\ ordemDeAtaque = << [iniciativa |-> 12, id |-> "Barbaro"],
-   [iniciativa |-> 11, id |-> "Mago"],
-   [iniciativa |-> 11, id |-> "Clerigo"],
-   [iniciativa |-> 7, id |-> "Monstro"] >>
+        provocacao |-> "nenhuma",
+        iniciativa |-> 19 ] ]
+/\ ultimoAtaque = [attacker |-> "Mago", receiver |-> "Monstro", type |-> "paralisia"]
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
 /\ round = 1
 /\ inicializado = TRUE
 /\ proximo = 2
 
 
-\* <Next line 99, col 5 to line 132, col 41 of module batalha>
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
 STATE_4 == 
 /\ criaturas = [ Mago |->
       [ classe |-> "mago",
@@ -124,79 +136,90 @@ STATE_4 ==
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> FALSE,
-        iniciativa |-> 11 ],
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
   Clerigo |->
       [ classe |-> "clerigo",
         hp |-> 20,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> FALSE,
-        iniciativa |-> 11 ],
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
   Barbaro |->
       [ classe |-> "barbaro",
         hp |-> 150,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> FALSE,
-        iniciativa |-> 12 ],
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
   Monstro |->
       [ classe |-> "monstro",
-        hp |-> 80,
+        hp |-> 100,
         tipo |-> "monstros",
-        paralisia |-> "nenhuma",
+        paralisia |-> "temporaria",
         imunidade |-> FALSE,
-        iniciativa |-> 7 ] ]
-/\ ultimoAtaque = [attacker |-> "Mago", receiver |-> "Monstro", type |-> "ataque", damage |-> 10]
-/\ ordemDeAtaque = << [iniciativa |-> 12, id |-> "Barbaro"],
-   [iniciativa |-> 11, id |-> "Mago"],
-   [iniciativa |-> 11, id |-> "Clerigo"],
-   [iniciativa |-> 7, id |-> "Monstro"] >>
+        provocacao |-> "nenhuma",
+        iniciativa |-> 19 ] ]
+/\ ultimoAtaque = [attacker |-> "Mago", receiver |-> "Monstro", type |-> "paralisia"]
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
 /\ round = 1
 /\ inicializado = TRUE
 /\ proximo = 3
 
 
-\* <Next line 99, col 5 to line 132, col 41 of module batalha>
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
 STATE_5 == 
 /\ criaturas = [ Mago |->
       [ classe |-> "mago",
         hp |-> 20,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
-        imunidade |-> TRUE,
-        iniciativa |-> 11 ],
+        imunidade |-> FALSE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
   Clerigo |->
       [ classe |-> "clerigo",
         hp |-> 20,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
-        imunidade |-> TRUE,
-        iniciativa |-> 11 ],
+        imunidade |-> FALSE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
   Barbaro |->
       [ classe |-> "barbaro",
         hp |-> 150,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
-        imunidade |-> TRUE,
-        iniciativa |-> 12 ],
+        imunidade |-> FALSE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
   Monstro |->
       [ classe |-> "monstro",
-        hp |-> 80,
+        hp |-> 90,
         tipo |-> "monstros",
-        paralisia |-> "nenhuma",
+        paralisia |-> "temporaria",
         imunidade |-> FALSE,
-        iniciativa |-> 7 ] ]
-/\ ultimoAtaque = [attacker |-> "Clerigo", type |-> "imunidade"]
-/\ ordemDeAtaque = << [iniciativa |-> 12, id |-> "Barbaro"],
-   [iniciativa |-> 11, id |-> "Mago"],
-   [iniciativa |-> 11, id |-> "Clerigo"],
-   [iniciativa |-> 7, id |-> "Monstro"] >>
+        provocacao |-> "nenhuma",
+        iniciativa |-> 19 ] ]
+/\ ultimoAtaque = [ attacker |-> "Barbaro",
+  receiver |-> "Monstro",
+  type |-> "ataque",
+  damage |-> 10 ]
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
 /\ round = 1
 /\ inicializado = TRUE
 /\ proximo = 4
 
 
-\* <Next line 99, col 5 to line 132, col 41 of module batalha>
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
 STATE_6 == 
 /\ criaturas = [ Mago |->
       [ classe |-> "mago",
@@ -204,39 +227,43 @@ STATE_6 ==
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> TRUE,
-        iniciativa |-> 11 ],
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
   Clerigo |->
       [ classe |-> "clerigo",
         hp |-> 20,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> TRUE,
-        iniciativa |-> 11 ],
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
   Barbaro |->
       [ classe |-> "barbaro",
         hp |-> 150,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> TRUE,
-        iniciativa |-> 12 ],
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
   Monstro |->
       [ classe |-> "monstro",
-        hp |-> 80,
+        hp |-> 90,
         tipo |-> "monstros",
-        paralisia |-> "nenhuma",
+        paralisia |-> "temporaria",
         imunidade |-> FALSE,
-        iniciativa |-> 7 ] ]
-/\ ultimoAtaque = [attacker |-> "Monstro", receiver |-> "Mago", type |-> "ataque", damage |-> 10]
-/\ ordemDeAtaque = << [iniciativa |-> 12, id |-> "Barbaro"],
-   [iniciativa |-> 11, id |-> "Mago"],
-   [iniciativa |-> 11, id |-> "Clerigo"],
-   [iniciativa |-> 7, id |-> "Monstro"] >>
+        provocacao |-> "nenhuma",
+        iniciativa |-> 19 ] ]
+/\ ultimoAtaque = [attacker |-> "Clerigo", type |-> "imunidade"]
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
 /\ round = 2
 /\ inicializado = TRUE
 /\ proximo = 1
 
 
-\* <Next line 99, col 5 to line 132, col 41 of module batalha>
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
 STATE_7 == 
 /\ criaturas = [ Mago |->
       [ classe |-> "mago",
@@ -244,42 +271,47 @@ STATE_7 ==
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> TRUE,
-        iniciativa |-> 11 ],
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
   Clerigo |->
       [ classe |-> "clerigo",
         hp |-> 20,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> TRUE,
-        iniciativa |-> 11 ],
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
   Barbaro |->
       [ classe |-> "barbaro",
         hp |-> 150,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> TRUE,
-        iniciativa |-> 12 ],
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
   Monstro |->
       [ classe |-> "monstro",
-        hp |-> 70,
+        hp |-> 90,
         tipo |-> "monstros",
         paralisia |-> "nenhuma",
         imunidade |-> FALSE,
-        iniciativa |-> 7 ] ]
-/\ ultimoAtaque = [ attacker |-> "Barbaro",
-  receiver |-> "Monstro",
-  type |-> "ataque",
-  damage |-> 10 ]
-/\ ordemDeAtaque = << [iniciativa |-> 12, id |-> "Barbaro"],
-   [iniciativa |-> 11, id |-> "Mago"],
-   [iniciativa |-> 11, id |-> "Clerigo"],
-   [iniciativa |-> 7, id |-> "Monstro"] >>
+        provocacao |-> "nenhuma",
+        iniciativa |-> 19 ] ]
+/\ ultimoAtaque = [ type |-> "",
+  attacker |-> "",
+  receiver |-> "",
+  damage |-> 0,
+  status |-> "monstro nao realizou acao pois estava paralisado" ]
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
 /\ round = 2
 /\ inicializado = TRUE
 /\ proximo = 2
 
 
-\* <Next line 99, col 5 to line 132, col 41 of module batalha>
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
 STATE_8 == 
 /\ criaturas = [ Mago |->
       [ classe |-> "mago",
@@ -287,39 +319,43 @@ STATE_8 ==
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> TRUE,
-        iniciativa |-> 11 ],
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
   Clerigo |->
       [ classe |-> "clerigo",
         hp |-> 20,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> TRUE,
-        iniciativa |-> 11 ],
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
   Barbaro |->
       [ classe |-> "barbaro",
         hp |-> 150,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> TRUE,
-        iniciativa |-> 12 ],
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
   Monstro |->
       [ classe |-> "monstro",
-        hp |-> 60,
+        hp |-> 90,
         tipo |-> "monstros",
-        paralisia |-> "nenhuma",
+        paralisia |-> "temporaria",
         imunidade |-> FALSE,
-        iniciativa |-> 7 ] ]
-/\ ultimoAtaque = [attacker |-> "Mago", receiver |-> "Monstro", type |-> "ataque", damage |-> 10]
-/\ ordemDeAtaque = << [iniciativa |-> 12, id |-> "Barbaro"],
-   [iniciativa |-> 11, id |-> "Mago"],
-   [iniciativa |-> 11, id |-> "Clerigo"],
-   [iniciativa |-> 7, id |-> "Monstro"] >>
+        provocacao |-> "nenhuma",
+        iniciativa |-> 19 ] ]
+/\ ultimoAtaque = [attacker |-> "Mago", receiver |-> "Monstro", type |-> "paralisia"]
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
 /\ round = 2
 /\ inicializado = TRUE
 /\ proximo = 3
 
 
-\* <Next line 99, col 5 to line 132, col 41 of module batalha>
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
 STATE_9 == 
 /\ criaturas = [ Mago |->
       [ classe |-> "mago",
@@ -327,39 +363,46 @@ STATE_9 ==
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> TRUE,
-        iniciativa |-> 11 ],
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
   Clerigo |->
       [ classe |-> "clerigo",
         hp |-> 20,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> TRUE,
-        iniciativa |-> 11 ],
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
   Barbaro |->
       [ classe |-> "barbaro",
         hp |-> 150,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> TRUE,
-        iniciativa |-> 12 ],
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
   Monstro |->
       [ classe |-> "monstro",
-        hp |-> 60,
+        hp |-> 80,
         tipo |-> "monstros",
-        paralisia |-> "nenhuma",
+        paralisia |-> "temporaria",
         imunidade |-> FALSE,
-        iniciativa |-> 7 ] ]
-/\ ultimoAtaque = [attacker |-> "Clerigo", type |-> "imunidade"]
-/\ ordemDeAtaque = << [iniciativa |-> 12, id |-> "Barbaro"],
-   [iniciativa |-> 11, id |-> "Mago"],
-   [iniciativa |-> 11, id |-> "Clerigo"],
-   [iniciativa |-> 7, id |-> "Monstro"] >>
+        provocacao |-> "nenhuma",
+        iniciativa |-> 19 ] ]
+/\ ultimoAtaque = [ attacker |-> "Barbaro",
+  receiver |-> "Monstro",
+  type |-> "ataque",
+  damage |-> 10 ]
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
 /\ round = 2
 /\ inicializado = TRUE
 /\ proximo = 4
 
 
-\* <Next line 99, col 5 to line 132, col 41 of module batalha>
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
 STATE_10 == 
 /\ criaturas = [ Mago |->
       [ classe |-> "mago",
@@ -367,39 +410,43 @@ STATE_10 ==
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> TRUE,
-        iniciativa |-> 11 ],
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
   Clerigo |->
       [ classe |-> "clerigo",
         hp |-> 20,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> TRUE,
-        iniciativa |-> 11 ],
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
   Barbaro |->
       [ classe |-> "barbaro",
         hp |-> 150,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> TRUE,
-        iniciativa |-> 12 ],
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
   Monstro |->
       [ classe |-> "monstro",
-        hp |-> 60,
+        hp |-> 80,
         tipo |-> "monstros",
-        paralisia |-> "nenhuma",
+        paralisia |-> "temporaria",
         imunidade |-> FALSE,
-        iniciativa |-> 7 ] ]
-/\ ultimoAtaque = [attacker |-> "Monstro", receiver |-> "Mago", type |-> "ataque", damage |-> 20]
-/\ ordemDeAtaque = << [iniciativa |-> 12, id |-> "Barbaro"],
-   [iniciativa |-> 11, id |-> "Mago"],
-   [iniciativa |-> 11, id |-> "Clerigo"],
-   [iniciativa |-> 7, id |-> "Monstro"] >>
+        provocacao |-> "nenhuma",
+        iniciativa |-> 19 ] ]
+/\ ultimoAtaque = [attacker |-> "Clerigo", type |-> "imunidade"]
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
 /\ round = 3
 /\ inicializado = TRUE
 /\ proximo = 1
 
 
-\* <Next line 99, col 5 to line 132, col 41 of module batalha>
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
 STATE_11 == 
 /\ criaturas = [ Mago |->
       [ classe |-> "mago",
@@ -407,42 +454,47 @@ STATE_11 ==
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> TRUE,
-        iniciativa |-> 11 ],
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
   Clerigo |->
       [ classe |-> "clerigo",
         hp |-> 20,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> TRUE,
-        iniciativa |-> 11 ],
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
   Barbaro |->
       [ classe |-> "barbaro",
         hp |-> 150,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> TRUE,
-        iniciativa |-> 12 ],
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
   Monstro |->
       [ classe |-> "monstro",
-        hp |-> 50,
+        hp |-> 80,
         tipo |-> "monstros",
         paralisia |-> "nenhuma",
         imunidade |-> FALSE,
-        iniciativa |-> 7 ] ]
-/\ ultimoAtaque = [ attacker |-> "Barbaro",
-  receiver |-> "Monstro",
-  type |-> "ataque",
-  damage |-> 10 ]
-/\ ordemDeAtaque = << [iniciativa |-> 12, id |-> "Barbaro"],
-   [iniciativa |-> 11, id |-> "Mago"],
-   [iniciativa |-> 11, id |-> "Clerigo"],
-   [iniciativa |-> 7, id |-> "Monstro"] >>
+        provocacao |-> "nenhuma",
+        iniciativa |-> 19 ] ]
+/\ ultimoAtaque = [ type |-> "",
+  attacker |-> "",
+  receiver |-> "",
+  damage |-> 0,
+  status |-> "monstro nao realizou acao pois estava paralisado" ]
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
 /\ round = 3
 /\ inicializado = TRUE
 /\ proximo = 2
 
 
-\* <Next line 99, col 5 to line 132, col 41 of module batalha>
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
 STATE_12 == 
 /\ criaturas = [ Mago |->
       [ classe |-> "mago",
@@ -450,39 +502,43 @@ STATE_12 ==
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> TRUE,
-        iniciativa |-> 11 ],
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
   Clerigo |->
       [ classe |-> "clerigo",
         hp |-> 20,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> TRUE,
-        iniciativa |-> 11 ],
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
   Barbaro |->
       [ classe |-> "barbaro",
         hp |-> 150,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> TRUE,
-        iniciativa |-> 12 ],
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
   Monstro |->
       [ classe |-> "monstro",
-        hp |-> 40,
+        hp |-> 80,
         tipo |-> "monstros",
-        paralisia |-> "nenhuma",
+        paralisia |-> "temporaria",
         imunidade |-> FALSE,
-        iniciativa |-> 7 ] ]
-/\ ultimoAtaque = [attacker |-> "Mago", receiver |-> "Monstro", type |-> "ataque", damage |-> 10]
-/\ ordemDeAtaque = << [iniciativa |-> 12, id |-> "Barbaro"],
-   [iniciativa |-> 11, id |-> "Mago"],
-   [iniciativa |-> 11, id |-> "Clerigo"],
-   [iniciativa |-> 7, id |-> "Monstro"] >>
+        provocacao |-> "nenhuma",
+        iniciativa |-> 19 ] ]
+/\ ultimoAtaque = [attacker |-> "Mago", receiver |-> "Monstro", type |-> "paralisia"]
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
 /\ round = 3
 /\ inicializado = TRUE
 /\ proximo = 3
 
 
-\* <Next line 99, col 5 to line 132, col 41 of module batalha>
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
 STATE_13 == 
 /\ criaturas = [ Mago |->
       [ classe |-> "mago",
@@ -490,163 +546,182 @@ STATE_13 ==
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> TRUE,
-        iniciativa |-> 11 ],
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
   Clerigo |->
       [ classe |-> "clerigo",
         hp |-> 20,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> TRUE,
-        iniciativa |-> 11 ],
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
   Barbaro |->
       [ classe |-> "barbaro",
         hp |-> 150,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> TRUE,
-        iniciativa |-> 12 ],
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
   Monstro |->
       [ classe |-> "monstro",
-        hp |-> 40,
+        hp |-> 80,
         tipo |-> "monstros",
-        paralisia |-> "nenhuma",
+        paralisia |-> "temporaria",
         imunidade |-> FALSE,
-        iniciativa |-> 7 ] ]
-/\ ultimoAtaque = [attacker |-> "Clerigo", type |-> "imunidade"]
-/\ ordemDeAtaque = << [iniciativa |-> 12, id |-> "Barbaro"],
-   [iniciativa |-> 11, id |-> "Mago"],
-   [iniciativa |-> 11, id |-> "Clerigo"],
-   [iniciativa |-> 7, id |-> "Monstro"] >>
+        provocacao |-> "provocado",
+        iniciativa |-> 19 ] ]
+/\ ultimoAtaque = [attacker |-> "Barbaro", receiver |-> "Monstro", type |-> "provocacao"]
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
 /\ round = 3
 /\ inicializado = TRUE
 /\ proximo = 4
 
 
-\* <Next line 99, col 5 to line 132, col 41 of module batalha>
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
 STATE_14 == 
 /\ criaturas = [ Mago |->
       [ classe |-> "mago",
         hp |-> 20,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
-        imunidade |-> TRUE,
-        iniciativa |-> 11 ],
+        imunidade |-> FALSE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
   Clerigo |->
       [ classe |-> "clerigo",
         hp |-> 20,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
-        imunidade |-> TRUE,
-        iniciativa |-> 11 ],
+        imunidade |-> FALSE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
   Barbaro |->
       [ classe |-> "barbaro",
         hp |-> 150,
         tipo |-> "personagem",
-        paralisia |-> "permanente",
-        imunidade |-> TRUE,
-        iniciativa |-> 12 ],
-  Monstro |->
-      [ classe |-> "monstro",
-        hp |-> 40,
-        tipo |-> "monstros",
         paralisia |-> "nenhuma",
         imunidade |-> FALSE,
-        iniciativa |-> 7 ] ]
-/\ ultimoAtaque = [attacker |-> "Monstro", receiver |-> "Barbaro", type |-> "paralisia"]
-/\ ordemDeAtaque = << [iniciativa |-> 12, id |-> "Barbaro"],
-   [iniciativa |-> 11, id |-> "Mago"],
-   [iniciativa |-> 11, id |-> "Clerigo"],
-   [iniciativa |-> 7, id |-> "Monstro"] >>
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
+  Monstro |->
+      [ classe |-> "monstro",
+        hp |-> 70,
+        tipo |-> "monstros",
+        paralisia |-> "temporaria",
+        imunidade |-> FALSE,
+        provocacao |-> "provocado",
+        iniciativa |-> 19 ] ]
+/\ ultimoAtaque = [ attacker |-> "Clerigo",
+  receiver |-> "Monstro",
+  type |-> "ataque",
+  damage |-> 10 ]
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
 /\ round = 4
 /\ inicializado = TRUE
 /\ proximo = 1
 
 
-\* <Next line 99, col 5 to line 132, col 41 of module batalha>
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
 STATE_15 == 
 /\ criaturas = [ Mago |->
       [ classe |-> "mago",
         hp |-> 20,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
-        imunidade |-> TRUE,
-        iniciativa |-> 11 ],
+        imunidade |-> FALSE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
   Clerigo |->
       [ classe |-> "clerigo",
         hp |-> 20,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
-        imunidade |-> TRUE,
-        iniciativa |-> 11 ],
+        imunidade |-> FALSE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
   Barbaro |->
       [ classe |-> "barbaro",
         hp |-> 150,
         tipo |-> "personagem",
-        paralisia |-> "permanente",
-        imunidade |-> TRUE,
-        iniciativa |-> 12 ],
+        paralisia |-> "nenhuma",
+        imunidade |-> FALSE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
   Monstro |->
       [ classe |-> "monstro",
-        hp |-> 40,
+        hp |-> 70,
         tipo |-> "monstros",
         paralisia |-> "nenhuma",
         imunidade |-> FALSE,
-        iniciativa |-> 7 ] ]
-/\ ultimoAtaque = [ attacker |-> "",
+        provocacao |-> "provocado",
+        iniciativa |-> 19 ] ]
+/\ ultimoAtaque = [ type |-> "",
+  attacker |-> "",
   receiver |-> "",
-  type |-> "",
   damage |-> 0,
-  status |-> "personagem nao realizou acao pois esta paralisado" ]
-/\ ordemDeAtaque = << [iniciativa |-> 12, id |-> "Barbaro"],
-   [iniciativa |-> 11, id |-> "Mago"],
-   [iniciativa |-> 11, id |-> "Clerigo"],
-   [iniciativa |-> 7, id |-> "Monstro"] >>
+  status |-> "monstro nao realizou acao pois estava paralisado" ]
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
 /\ round = 4
 /\ inicializado = TRUE
 /\ proximo = 2
 
 
-\* <Next line 99, col 5 to line 132, col 41 of module batalha>
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
 STATE_16 == 
 /\ criaturas = [ Mago |->
       [ classe |-> "mago",
         hp |-> 20,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
-        imunidade |-> TRUE,
-        iniciativa |-> 11 ],
+        imunidade |-> FALSE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
   Clerigo |->
       [ classe |-> "clerigo",
         hp |-> 20,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
-        imunidade |-> TRUE,
-        iniciativa |-> 11 ],
+        imunidade |-> FALSE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
   Barbaro |->
       [ classe |-> "barbaro",
         hp |-> 150,
         tipo |-> "personagem",
-        paralisia |-> "permanente",
-        imunidade |-> TRUE,
-        iniciativa |-> 12 ],
+        paralisia |-> "nenhuma",
+        imunidade |-> FALSE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
   Monstro |->
       [ classe |-> "monstro",
-        hp |-> 40,
+        hp |-> 70,
         tipo |-> "monstros",
         paralisia |-> "temporaria",
         imunidade |-> FALSE,
-        iniciativa |-> 7 ] ]
+        provocacao |-> "provocado",
+        iniciativa |-> 19 ] ]
 /\ ultimoAtaque = [attacker |-> "Mago", receiver |-> "Monstro", type |-> "paralisia"]
-/\ ordemDeAtaque = << [iniciativa |-> 12, id |-> "Barbaro"],
-   [iniciativa |-> 11, id |-> "Mago"],
-   [iniciativa |-> 11, id |-> "Clerigo"],
-   [iniciativa |-> 7, id |-> "Monstro"] >>
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
 /\ round = 4
 /\ inicializado = TRUE
 /\ proximo = 3
 
 
-\* <Next line 99, col 5 to line 132, col 41 of module batalha>
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
 STATE_17 == 
 /\ criaturas = [ Mago |->
       [ classe |-> "mago",
@@ -654,373 +729,1271 @@ STATE_17 ==
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> FALSE,
-        iniciativa |-> 11 ],
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
   Clerigo |->
       [ classe |-> "clerigo",
         hp |-> 20,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> FALSE,
-        iniciativa |-> 11 ],
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
   Barbaro |->
       [ classe |-> "barbaro",
         hp |-> 150,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
-        imunidade |-> TRUE,
-        iniciativa |-> 12 ],
+        imunidade |-> FALSE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
   Monstro |->
       [ classe |-> "monstro",
-        hp |-> 40,
+        hp |-> 70,
         tipo |-> "monstros",
         paralisia |-> "temporaria",
         imunidade |-> FALSE,
-        iniciativa |-> 7 ] ]
-/\ ultimoAtaque = [attacker |-> "Clerigo", receiver |-> "Barbaro", type |-> "ajuda"]
-/\ ordemDeAtaque = << [iniciativa |-> 12, id |-> "Barbaro"],
-   [iniciativa |-> 11, id |-> "Mago"],
-   [iniciativa |-> 11, id |-> "Clerigo"],
-   [iniciativa |-> 7, id |-> "Monstro"] >>
+        provocacao |-> "provocado",
+        iniciativa |-> 19 ] ]
+/\ ultimoAtaque = [attacker |-> "Barbaro", receiver |-> "Monstro", type |-> "provocacao"]
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
 /\ round = 4
 /\ inicializado = TRUE
 /\ proximo = 4
 
 
-\* <Next line 99, col 5 to line 132, col 41 of module batalha>
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
 STATE_18 == 
 /\ criaturas = [ Mago |->
       [ classe |-> "mago",
         hp |-> 20,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
-        imunidade |-> FALSE,
-        iniciativa |-> 11 ],
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
   Clerigo |->
       [ classe |-> "clerigo",
         hp |-> 20,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
-        imunidade |-> FALSE,
-        iniciativa |-> 11 ],
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
   Barbaro |->
       [ classe |-> "barbaro",
         hp |-> 150,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> TRUE,
-        iniciativa |-> 12 ],
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
   Monstro |->
       [ classe |-> "monstro",
-        hp |-> 40,
+        hp |-> 70,
         tipo |-> "monstros",
-        paralisia |-> "nenhuma",
+        paralisia |-> "temporaria",
         imunidade |-> FALSE,
-        iniciativa |-> 7 ] ]
-/\ ultimoAtaque = [ type |-> "",
-  attacker |-> "",
-  receiver |-> "",
-  damage |-> 0,
-  status |-> "monstro nao realizou acao pois estava paralisado" ]
-/\ ordemDeAtaque = << [iniciativa |-> 12, id |-> "Barbaro"],
-   [iniciativa |-> 11, id |-> "Mago"],
-   [iniciativa |-> 11, id |-> "Clerigo"],
-   [iniciativa |-> 7, id |-> "Monstro"] >>
+        provocacao |-> "provocado",
+        iniciativa |-> 19 ] ]
+/\ ultimoAtaque = [attacker |-> "Clerigo", type |-> "imunidade"]
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
 /\ round = 5
 /\ inicializado = TRUE
 /\ proximo = 1
 
 
-\* <Next line 99, col 5 to line 132, col 41 of module batalha>
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
 STATE_19 == 
 /\ criaturas = [ Mago |->
       [ classe |-> "mago",
         hp |-> 20,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
-        imunidade |-> FALSE,
-        iniciativa |-> 11 ],
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
   Clerigo |->
       [ classe |-> "clerigo",
         hp |-> 20,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
-        imunidade |-> FALSE,
-        iniciativa |-> 11 ],
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
   Barbaro |->
       [ classe |-> "barbaro",
         hp |-> 150,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> TRUE,
-        iniciativa |-> 12 ],
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
   Monstro |->
       [ classe |-> "monstro",
-        hp |-> 30,
+        hp |-> 70,
         tipo |-> "monstros",
         paralisia |-> "nenhuma",
         imunidade |-> FALSE,
-        iniciativa |-> 7 ] ]
-/\ ultimoAtaque = [ attacker |-> "Barbaro",
-  receiver |-> "Monstro",
-  type |-> "ataque",
-  damage |-> 10 ]
-/\ ordemDeAtaque = << [iniciativa |-> 12, id |-> "Barbaro"],
-   [iniciativa |-> 11, id |-> "Mago"],
-   [iniciativa |-> 11, id |-> "Clerigo"],
-   [iniciativa |-> 7, id |-> "Monstro"] >>
+        provocacao |-> "provocado",
+        iniciativa |-> 19 ] ]
+/\ ultimoAtaque = [ type |-> "",
+  attacker |-> "",
+  receiver |-> "",
+  damage |-> 0,
+  status |-> "monstro nao realizou acao pois estava paralisado" ]
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
 /\ round = 5
 /\ inicializado = TRUE
 /\ proximo = 2
 
 
-\* <Next line 99, col 5 to line 132, col 41 of module batalha>
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
 STATE_20 == 
 /\ criaturas = [ Mago |->
       [ classe |-> "mago",
         hp |-> 20,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
-        imunidade |-> FALSE,
-        iniciativa |-> 11 ],
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
   Clerigo |->
       [ classe |-> "clerigo",
         hp |-> 20,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
-        imunidade |-> FALSE,
-        iniciativa |-> 11 ],
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
   Barbaro |->
       [ classe |-> "barbaro",
         hp |-> 150,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> TRUE,
-        iniciativa |-> 12 ],
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
   Monstro |->
       [ classe |-> "monstro",
-        hp |-> 20,
+        hp |-> 70,
         tipo |-> "monstros",
-        paralisia |-> "nenhuma",
+        paralisia |-> "temporaria",
         imunidade |-> FALSE,
-        iniciativa |-> 7 ] ]
-/\ ultimoAtaque = [attacker |-> "Mago", receiver |-> "Monstro", type |-> "ataque", damage |-> 10]
-/\ ordemDeAtaque = << [iniciativa |-> 12, id |-> "Barbaro"],
-   [iniciativa |-> 11, id |-> "Mago"],
-   [iniciativa |-> 11, id |-> "Clerigo"],
-   [iniciativa |-> 7, id |-> "Monstro"] >>
+        provocacao |-> "provocado",
+        iniciativa |-> 19 ] ]
+/\ ultimoAtaque = [attacker |-> "Mago", receiver |-> "Monstro", type |-> "paralisia"]
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
 /\ round = 5
 /\ inicializado = TRUE
 /\ proximo = 3
 
 
-\* <Next line 99, col 5 to line 132, col 41 of module batalha>
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
 STATE_21 == 
 /\ criaturas = [ Mago |->
       [ classe |-> "mago",
         hp |-> 20,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
-        imunidade |-> FALSE,
-        iniciativa |-> 11 ],
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
   Clerigo |->
       [ classe |-> "clerigo",
         hp |-> 20,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
-        imunidade |-> FALSE,
-        iniciativa |-> 11 ],
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
   Barbaro |->
       [ classe |-> "barbaro",
         hp |-> 150,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
-        imunidade |-> FALSE,
-        iniciativa |-> 12 ],
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
   Monstro |->
       [ classe |-> "monstro",
-        hp |-> 10,
+        hp |-> 70,
         tipo |-> "monstros",
-        paralisia |-> "nenhuma",
+        paralisia |-> "temporaria",
         imunidade |-> FALSE,
-        iniciativa |-> 7 ] ]
-/\ ultimoAtaque = [ attacker |-> "Clerigo",
-  receiver |-> "Monstro",
-  type |-> "ataque",
-  damage |-> 10 ]
-/\ ordemDeAtaque = << [iniciativa |-> 12, id |-> "Barbaro"],
-   [iniciativa |-> 11, id |-> "Mago"],
-   [iniciativa |-> 11, id |-> "Clerigo"],
-   [iniciativa |-> 7, id |-> "Monstro"] >>
+        provocacao |-> "provocado",
+        iniciativa |-> 19 ] ]
+/\ ultimoAtaque = [attacker |-> "Barbaro", receiver |-> "Monstro", type |-> "provocacao"]
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
 /\ round = 5
 /\ inicializado = TRUE
 /\ proximo = 4
 
 
-\* <Next line 99, col 5 to line 132, col 41 of module batalha>
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
 STATE_22 == 
 /\ criaturas = [ Mago |->
       [ classe |-> "mago",
         hp |-> 20,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
-        imunidade |-> FALSE,
-        iniciativa |-> 11 ],
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
   Clerigo |->
       [ classe |-> "clerigo",
         hp |-> 20,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
-        imunidade |-> FALSE,
-        iniciativa |-> 11 ],
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
   Barbaro |->
       [ classe |-> "barbaro",
         hp |-> 150,
         tipo |-> "personagem",
-        paralisia |-> "permanente",
-        imunidade |-> FALSE,
-        iniciativa |-> 12 ],
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
   Monstro |->
       [ classe |-> "monstro",
-        hp |-> 10,
+        hp |-> 70,
         tipo |-> "monstros",
-        paralisia |-> "nenhuma",
+        paralisia |-> "temporaria",
         imunidade |-> FALSE,
-        iniciativa |-> 7 ] ]
-/\ ultimoAtaque = [attacker |-> "Monstro", receiver |-> "Barbaro", type |-> "paralisia"]
-/\ ordemDeAtaque = << [iniciativa |-> 12, id |-> "Barbaro"],
-   [iniciativa |-> 11, id |-> "Mago"],
-   [iniciativa |-> 11, id |-> "Clerigo"],
-   [iniciativa |-> 7, id |-> "Monstro"] >>
+        provocacao |-> "provocado",
+        iniciativa |-> 19 ] ]
+/\ ultimoAtaque = [attacker |-> "Clerigo", type |-> "imunidade"]
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
 /\ round = 6
 /\ inicializado = TRUE
 /\ proximo = 1
 
 
-\* <Next line 99, col 5 to line 132, col 41 of module batalha>
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
 STATE_23 == 
 /\ criaturas = [ Mago |->
       [ classe |-> "mago",
         hp |-> 20,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
-        imunidade |-> FALSE,
-        iniciativa |-> 11 ],
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
   Clerigo |->
       [ classe |-> "clerigo",
         hp |-> 20,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
-        imunidade |-> FALSE,
-        iniciativa |-> 11 ],
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
   Barbaro |->
       [ classe |-> "barbaro",
         hp |-> 150,
         tipo |-> "personagem",
-        paralisia |-> "permanente",
-        imunidade |-> FALSE,
-        iniciativa |-> 12 ],
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
   Monstro |->
       [ classe |-> "monstro",
-        hp |-> 10,
+        hp |-> 70,
         tipo |-> "monstros",
         paralisia |-> "nenhuma",
         imunidade |-> FALSE,
-        iniciativa |-> 7 ] ]
-/\ ultimoAtaque = [ attacker |-> "",
+        provocacao |-> "provocado",
+        iniciativa |-> 19 ] ]
+/\ ultimoAtaque = [ type |-> "",
+  attacker |-> "",
   receiver |-> "",
-  type |-> "",
   damage |-> 0,
-  status |-> "personagem nao realizou acao pois esta paralisado" ]
-/\ ordemDeAtaque = << [iniciativa |-> 12, id |-> "Barbaro"],
-   [iniciativa |-> 11, id |-> "Mago"],
-   [iniciativa |-> 11, id |-> "Clerigo"],
-   [iniciativa |-> 7, id |-> "Monstro"] >>
+  status |-> "monstro nao realizou acao pois estava paralisado" ]
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
 /\ round = 6
 /\ inicializado = TRUE
 /\ proximo = 2
 
 
-\* <Next line 99, col 5 to line 132, col 41 of module batalha>
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
 STATE_24 == 
 /\ criaturas = [ Mago |->
       [ classe |-> "mago",
         hp |-> 20,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
-        imunidade |-> FALSE,
-        iniciativa |-> 11 ],
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
   Clerigo |->
       [ classe |-> "clerigo",
         hp |-> 20,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
-        imunidade |-> FALSE,
-        iniciativa |-> 11 ],
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
   Barbaro |->
       [ classe |-> "barbaro",
         hp |-> 150,
         tipo |-> "personagem",
-        paralisia |-> "permanente",
-        imunidade |-> FALSE,
-        iniciativa |-> 12 ],
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
   Monstro |->
       [ classe |-> "monstro",
-        hp |-> 10,
+        hp |-> 70,
         tipo |-> "monstros",
         paralisia |-> "temporaria",
         imunidade |-> FALSE,
-        iniciativa |-> 7 ] ]
+        provocacao |-> "provocado",
+        iniciativa |-> 19 ] ]
 /\ ultimoAtaque = [attacker |-> "Mago", receiver |-> "Monstro", type |-> "paralisia"]
-/\ ordemDeAtaque = << [iniciativa |-> 12, id |-> "Barbaro"],
-   [iniciativa |-> 11, id |-> "Mago"],
-   [iniciativa |-> 11, id |-> "Clerigo"],
-   [iniciativa |-> 7, id |-> "Monstro"] >>
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
 /\ round = 6
 /\ inicializado = TRUE
 /\ proximo = 3
 
 
-\* <Next line 99, col 5 to line 132, col 41 of module batalha>
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
 STATE_25 == 
 /\ criaturas = [ Mago |->
       [ classe |-> "mago",
         hp |-> 20,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
+  Clerigo |->
+      [ classe |-> "clerigo",
+        hp |-> 20,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
+  Barbaro |->
+      [ classe |-> "barbaro",
+        hp |-> 150,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
+  Monstro |->
+      [ classe |-> "monstro",
+        hp |-> 60,
+        tipo |-> "monstros",
+        paralisia |-> "temporaria",
         imunidade |-> FALSE,
-        iniciativa |-> 11 ],
+        provocacao |-> "provocado",
+        iniciativa |-> 19 ] ]
+/\ ultimoAtaque = [ attacker |-> "Barbaro",
+  receiver |-> "Monstro",
+  type |-> "ataque",
+  damage |-> 10 ]
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
+/\ round = 6
+/\ inicializado = TRUE
+/\ proximo = 4
+
+
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
+STATE_26 == 
+/\ criaturas = [ Mago |->
+      [ classe |-> "mago",
+        hp |-> 20,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
+  Clerigo |->
+      [ classe |-> "clerigo",
+        hp |-> 20,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
+  Barbaro |->
+      [ classe |-> "barbaro",
+        hp |-> 150,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
+  Monstro |->
+      [ classe |-> "monstro",
+        hp |-> 60,
+        tipo |-> "monstros",
+        paralisia |-> "temporaria",
+        imunidade |-> FALSE,
+        provocacao |-> "provocado",
+        iniciativa |-> 19 ] ]
+/\ ultimoAtaque = [attacker |-> "Clerigo", type |-> "imunidade"]
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
+/\ round = 7
+/\ inicializado = TRUE
+/\ proximo = 1
+
+
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
+STATE_27 == 
+/\ criaturas = [ Mago |->
+      [ classe |-> "mago",
+        hp |-> 20,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
+  Clerigo |->
+      [ classe |-> "clerigo",
+        hp |-> 20,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
+  Barbaro |->
+      [ classe |-> "barbaro",
+        hp |-> 150,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
+  Monstro |->
+      [ classe |-> "monstro",
+        hp |-> 60,
+        tipo |-> "monstros",
+        paralisia |-> "nenhuma",
+        imunidade |-> FALSE,
+        provocacao |-> "provocado",
+        iniciativa |-> 19 ] ]
+/\ ultimoAtaque = [ type |-> "",
+  attacker |-> "",
+  receiver |-> "",
+  damage |-> 0,
+  status |-> "monstro nao realizou acao pois estava paralisado" ]
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
+/\ round = 7
+/\ inicializado = TRUE
+/\ proximo = 2
+
+
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
+STATE_28 == 
+/\ criaturas = [ Mago |->
+      [ classe |-> "mago",
+        hp |-> 20,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
+  Clerigo |->
+      [ classe |-> "clerigo",
+        hp |-> 20,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
+  Barbaro |->
+      [ classe |-> "barbaro",
+        hp |-> 150,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
+  Monstro |->
+      [ classe |-> "monstro",
+        hp |-> 60,
+        tipo |-> "monstros",
+        paralisia |-> "temporaria",
+        imunidade |-> FALSE,
+        provocacao |-> "provocado",
+        iniciativa |-> 19 ] ]
+/\ ultimoAtaque = [attacker |-> "Mago", receiver |-> "Monstro", type |-> "paralisia"]
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
+/\ round = 7
+/\ inicializado = TRUE
+/\ proximo = 3
+
+
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
+STATE_29 == 
+/\ criaturas = [ Mago |->
+      [ classe |-> "mago",
+        hp |-> 20,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
+  Clerigo |->
+      [ classe |-> "clerigo",
+        hp |-> 20,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
+  Barbaro |->
+      [ classe |-> "barbaro",
+        hp |-> 150,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
+  Monstro |->
+      [ classe |-> "monstro",
+        hp |-> 60,
+        tipo |-> "monstros",
+        paralisia |-> "temporaria",
+        imunidade |-> FALSE,
+        provocacao |-> "provocado",
+        iniciativa |-> 19 ] ]
+/\ ultimoAtaque = [attacker |-> "Barbaro", receiver |-> "Monstro", type |-> "provocacao"]
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
+/\ round = 7
+/\ inicializado = TRUE
+/\ proximo = 4
+
+
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
+STATE_30 == 
+/\ criaturas = [ Mago |->
+      [ classe |-> "mago",
+        hp |-> 20,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
+  Clerigo |->
+      [ classe |-> "clerigo",
+        hp |-> 20,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
+  Barbaro |->
+      [ classe |-> "barbaro",
+        hp |-> 150,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
+  Monstro |->
+      [ classe |-> "monstro",
+        hp |-> 60,
+        tipo |-> "monstros",
+        paralisia |-> "temporaria",
+        imunidade |-> FALSE,
+        provocacao |-> "provocado",
+        iniciativa |-> 19 ] ]
+/\ ultimoAtaque = [attacker |-> "Clerigo", type |-> "imunidade"]
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
+/\ round = 8
+/\ inicializado = TRUE
+/\ proximo = 1
+
+
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
+STATE_31 == 
+/\ criaturas = [ Mago |->
+      [ classe |-> "mago",
+        hp |-> 20,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
+  Clerigo |->
+      [ classe |-> "clerigo",
+        hp |-> 20,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
+  Barbaro |->
+      [ classe |-> "barbaro",
+        hp |-> 150,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
+  Monstro |->
+      [ classe |-> "monstro",
+        hp |-> 60,
+        tipo |-> "monstros",
+        paralisia |-> "nenhuma",
+        imunidade |-> FALSE,
+        provocacao |-> "provocado",
+        iniciativa |-> 19 ] ]
+/\ ultimoAtaque = [ type |-> "",
+  attacker |-> "",
+  receiver |-> "",
+  damage |-> 0,
+  status |-> "monstro nao realizou acao pois estava paralisado" ]
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
+/\ round = 8
+/\ inicializado = TRUE
+/\ proximo = 2
+
+
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
+STATE_32 == 
+/\ criaturas = [ Mago |->
+      [ classe |-> "mago",
+        hp |-> 20,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
+  Clerigo |->
+      [ classe |-> "clerigo",
+        hp |-> 20,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
+  Barbaro |->
+      [ classe |-> "barbaro",
+        hp |-> 150,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
+  Monstro |->
+      [ classe |-> "monstro",
+        hp |-> 60,
+        tipo |-> "monstros",
+        paralisia |-> "temporaria",
+        imunidade |-> FALSE,
+        provocacao |-> "provocado",
+        iniciativa |-> 19 ] ]
+/\ ultimoAtaque = [attacker |-> "Mago", receiver |-> "Monstro", type |-> "paralisia"]
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
+/\ round = 8
+/\ inicializado = TRUE
+/\ proximo = 3
+
+
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
+STATE_33 == 
+/\ criaturas = [ Mago |->
+      [ classe |-> "mago",
+        hp |-> 20,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
+  Clerigo |->
+      [ classe |-> "clerigo",
+        hp |-> 20,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
+  Barbaro |->
+      [ classe |-> "barbaro",
+        hp |-> 150,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
+  Monstro |->
+      [ classe |-> "monstro",
+        hp |-> 50,
+        tipo |-> "monstros",
+        paralisia |-> "temporaria",
+        imunidade |-> FALSE,
+        provocacao |-> "provocado",
+        iniciativa |-> 19 ] ]
+/\ ultimoAtaque = [ attacker |-> "Barbaro",
+  receiver |-> "Monstro",
+  type |-> "ataque",
+  damage |-> 10 ]
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
+/\ round = 8
+/\ inicializado = TRUE
+/\ proximo = 4
+
+
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
+STATE_34 == 
+/\ criaturas = [ Mago |->
+      [ classe |-> "mago",
+        hp |-> 20,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
+  Clerigo |->
+      [ classe |-> "clerigo",
+        hp |-> 20,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
+  Barbaro |->
+      [ classe |-> "barbaro",
+        hp |-> 150,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
+  Monstro |->
+      [ classe |-> "monstro",
+        hp |-> 50,
+        tipo |-> "monstros",
+        paralisia |-> "temporaria",
+        imunidade |-> FALSE,
+        provocacao |-> "provocado",
+        iniciativa |-> 19 ] ]
+/\ ultimoAtaque = [attacker |-> "Clerigo", type |-> "imunidade"]
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
+/\ round = 9
+/\ inicializado = TRUE
+/\ proximo = 1
+
+
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
+STATE_35 == 
+/\ criaturas = [ Mago |->
+      [ classe |-> "mago",
+        hp |-> 20,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
+  Clerigo |->
+      [ classe |-> "clerigo",
+        hp |-> 20,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
+  Barbaro |->
+      [ classe |-> "barbaro",
+        hp |-> 150,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
+  Monstro |->
+      [ classe |-> "monstro",
+        hp |-> 50,
+        tipo |-> "monstros",
+        paralisia |-> "nenhuma",
+        imunidade |-> FALSE,
+        provocacao |-> "provocado",
+        iniciativa |-> 19 ] ]
+/\ ultimoAtaque = [ type |-> "",
+  attacker |-> "",
+  receiver |-> "",
+  damage |-> 0,
+  status |-> "monstro nao realizou acao pois estava paralisado" ]
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
+/\ round = 9
+/\ inicializado = TRUE
+/\ proximo = 2
+
+
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
+STATE_36 == 
+/\ criaturas = [ Mago |->
+      [ classe |-> "mago",
+        hp |-> 20,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
+  Clerigo |->
+      [ classe |-> "clerigo",
+        hp |-> 20,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
+  Barbaro |->
+      [ classe |-> "barbaro",
+        hp |-> 150,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
+  Monstro |->
+      [ classe |-> "monstro",
+        hp |-> 50,
+        tipo |-> "monstros",
+        paralisia |-> "temporaria",
+        imunidade |-> FALSE,
+        provocacao |-> "provocado",
+        iniciativa |-> 19 ] ]
+/\ ultimoAtaque = [attacker |-> "Mago", receiver |-> "Monstro", type |-> "paralisia"]
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
+/\ round = 9
+/\ inicializado = TRUE
+/\ proximo = 3
+
+
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
+STATE_37 == 
+/\ criaturas = [ Mago |->
+      [ classe |-> "mago",
+        hp |-> 20,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
+  Clerigo |->
+      [ classe |-> "clerigo",
+        hp |-> 20,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
+  Barbaro |->
+      [ classe |-> "barbaro",
+        hp |-> 150,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
+  Monstro |->
+      [ classe |-> "monstro",
+        hp |-> 40,
+        tipo |-> "monstros",
+        paralisia |-> "temporaria",
+        imunidade |-> FALSE,
+        provocacao |-> "provocado",
+        iniciativa |-> 19 ] ]
+/\ ultimoAtaque = [ attacker |-> "Barbaro",
+  receiver |-> "Monstro",
+  type |-> "ataque",
+  damage |-> 10 ]
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
+/\ round = 9
+/\ inicializado = TRUE
+/\ proximo = 4
+
+
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
+STATE_38 == 
+/\ criaturas = [ Mago |->
+      [ classe |-> "mago",
+        hp |-> 20,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> FALSE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
   Clerigo |->
       [ classe |-> "clerigo",
         hp |-> 20,
         tipo |-> "personagem",
         paralisia |-> "nenhuma",
         imunidade |-> FALSE,
-        iniciativa |-> 11 ],
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
   Barbaro |->
       [ classe |-> "barbaro",
         hp |-> 150,
         tipo |-> "personagem",
-        paralisia |-> "permanente",
+        paralisia |-> "nenhuma",
         imunidade |-> FALSE,
-        iniciativa |-> 12 ],
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
   Monstro |->
       [ classe |-> "monstro",
-        hp |-> 0,
+        hp |-> 30,
         tipo |-> "monstros",
         paralisia |-> "temporaria",
         imunidade |-> FALSE,
-        iniciativa |-> 7 ] ]
+        provocacao |-> "provocado",
+        iniciativa |-> 19 ] ]
 /\ ultimoAtaque = [ attacker |-> "Clerigo",
   receiver |-> "Monstro",
   type |-> "ataque",
   damage |-> 10 ]
-/\ ordemDeAtaque = << [iniciativa |-> 12, id |-> "Barbaro"],
-   [iniciativa |-> 11, id |-> "Mago"],
-   [iniciativa |-> 11, id |-> "Clerigo"],
-   [iniciativa |-> 7, id |-> "Monstro"] >>
-/\ round = 6
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
+/\ round = 10
+/\ inicializado = TRUE
+/\ proximo = 1
+
+
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
+STATE_39 == 
+/\ criaturas = [ Mago |->
+      [ classe |-> "mago",
+        hp |-> 20,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> FALSE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
+  Clerigo |->
+      [ classe |-> "clerigo",
+        hp |-> 20,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> FALSE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
+  Barbaro |->
+      [ classe |-> "barbaro",
+        hp |-> 150,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> FALSE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
+  Monstro |->
+      [ classe |-> "monstro",
+        hp |-> 30,
+        tipo |-> "monstros",
+        paralisia |-> "nenhuma",
+        imunidade |-> FALSE,
+        provocacao |-> "provocado",
+        iniciativa |-> 19 ] ]
+/\ ultimoAtaque = [ type |-> "",
+  attacker |-> "",
+  receiver |-> "",
+  damage |-> 0,
+  status |-> "monstro nao realizou acao pois estava paralisado" ]
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
+/\ round = 10
+/\ inicializado = TRUE
+/\ proximo = 2
+
+
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
+STATE_40 == 
+/\ criaturas = [ Mago |->
+      [ classe |-> "mago",
+        hp |-> 20,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> FALSE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
+  Clerigo |->
+      [ classe |-> "clerigo",
+        hp |-> 20,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> FALSE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
+  Barbaro |->
+      [ classe |-> "barbaro",
+        hp |-> 150,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> FALSE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
+  Monstro |->
+      [ classe |-> "monstro",
+        hp |-> 20,
+        tipo |-> "monstros",
+        paralisia |-> "nenhuma",
+        imunidade |-> FALSE,
+        provocacao |-> "provocado",
+        iniciativa |-> 19 ] ]
+/\ ultimoAtaque = [attacker |-> "Mago", receiver |-> "Monstro", type |-> "ataque", damage |-> 10]
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
+/\ round = 10
+/\ inicializado = TRUE
+/\ proximo = 3
+
+
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
+STATE_41 == 
+/\ criaturas = [ Mago |->
+      [ classe |-> "mago",
+        hp |-> 20,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> FALSE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
+  Clerigo |->
+      [ classe |-> "clerigo",
+        hp |-> 20,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> FALSE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
+  Barbaro |->
+      [ classe |-> "barbaro",
+        hp |-> 150,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> FALSE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
+  Monstro |->
+      [ classe |-> "monstro",
+        hp |-> 10,
+        tipo |-> "monstros",
+        paralisia |-> "nenhuma",
+        imunidade |-> FALSE,
+        provocacao |-> "provocado",
+        iniciativa |-> 19 ] ]
+/\ ultimoAtaque = [ attacker |-> "Barbaro",
+  receiver |-> "Monstro",
+  type |-> "ataque",
+  damage |-> 10 ]
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
+/\ round = 10
 /\ inicializado = TRUE
 /\ proximo = 4
+
+
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
+STATE_42 == 
+/\ criaturas = [ Mago |->
+      [ classe |-> "mago",
+        hp |-> 20,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
+  Clerigo |->
+      [ classe |-> "clerigo",
+        hp |-> 20,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
+  Barbaro |->
+      [ classe |-> "barbaro",
+        hp |-> 150,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
+  Monstro |->
+      [ classe |-> "monstro",
+        hp |-> 10,
+        tipo |-> "monstros",
+        paralisia |-> "nenhuma",
+        imunidade |-> FALSE,
+        provocacao |-> "provocado",
+        iniciativa |-> 19 ] ]
+/\ ultimoAtaque = [attacker |-> "Clerigo", type |-> "imunidade"]
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
+/\ round = 11
+/\ inicializado = TRUE
+/\ proximo = 1
+
+
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
+STATE_43 == 
+/\ criaturas = [ Mago |->
+      [ classe |-> "mago",
+        hp |-> 20,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
+  Clerigo |->
+      [ classe |-> "clerigo",
+        hp |-> 20,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
+  Barbaro |->
+      [ classe |-> "barbaro",
+        hp |-> 150,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
+  Monstro |->
+      [ classe |-> "monstro",
+        hp |-> 10,
+        tipo |-> "monstros",
+        paralisia |-> "nenhuma",
+        imunidade |-> FALSE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 19 ] ]
+/\ ultimoAtaque = [ type |-> "",
+  attacker |-> "",
+  receiver |-> "",
+  damage |-> 0,
+  status |-> "monstro tava provocado" ]
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
+/\ round = 11
+/\ inicializado = TRUE
+/\ proximo = 2
+
+
+\* <Next line 126, col 5 to line 164, col 41 of module batalha>
+STATE_44 == 
+/\ criaturas = [ Mago |->
+      [ classe |-> "mago",
+        hp |-> 20,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 14 ],
+  Clerigo |->
+      [ classe |-> "clerigo",
+        hp |-> 20,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 9 ],
+  Barbaro |->
+      [ classe |-> "barbaro",
+        hp |-> 150,
+        tipo |-> "personagem",
+        paralisia |-> "nenhuma",
+        imunidade |-> TRUE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 10 ],
+  Monstro |->
+      [ classe |-> "monstro",
+        hp |-> 0,
+        tipo |-> "monstros",
+        paralisia |-> "nenhuma",
+        imunidade |-> FALSE,
+        provocacao |-> "nenhuma",
+        iniciativa |-> 19 ] ]
+/\ ultimoAtaque = [attacker |-> "Mago", receiver |-> "Monstro", type |-> "ataque", damage |-> 10]
+/\ ordemDeAtaque = << [iniciativa |-> 19, id |-> "Monstro"],
+   [iniciativa |-> 14, id |-> "Mago"],
+   [iniciativa |-> 10, id |-> "Barbaro"],
+   [iniciativa |-> 9, id |-> "Clerigo"] >>
+/\ round = 11
+/\ inicializado = TRUE
+/\ proximo = 3
 
 
 =================================================

@@ -6,10 +6,10 @@ VARIABLES criaturas, proximo, round, ordemDeAtaque, ultimoAtaque, inicializado
 CONSTANTS Mago, Clerigo, Barbaro, Monstro
 
 CRIATURAS == [
-  Mago    |-> [classe |-> "mago", hp |-> 20, tipo |-> "personagem", paralisia |-> "nenhuma", imunidade |-> FALSE, iniciativa |-> 0],
-  Clerigo |-> [classe |-> "clerigo", hp |-> 20, tipo |-> "personagem", paralisia |-> "nenhuma", imunidade |-> FALSE, iniciativa |-> 0],
-  Barbaro |-> [classe |-> "barbaro", hp |-> 150, tipo |-> "personagem", paralisia |-> "nenhuma", imunidade |-> FALSE, iniciativa |-> 0],
-  Monstro |-> [classe |-> "monstro", hp |-> 100, tipo |-> "monstros", paralisia |-> "nenhuma", imunidade |-> FALSE, iniciativa |-> 0]
+  Mago    |-> [classe |-> "mago", hp |-> 20, tipo |-> "personagem", paralisia |-> "nenhuma", imunidade |-> FALSE, provocacao |-> "nenhuma", iniciativa |-> 0],
+  Clerigo |-> [classe |-> "clerigo", hp |-> 20, tipo |-> "personagem", paralisia |-> "nenhuma", imunidade |-> FALSE, provocacao |-> "nenhuma", iniciativa |-> 0],
+  Barbaro |-> [classe |-> "barbaro", hp |-> 150, tipo |-> "personagem", paralisia |-> "nenhuma", imunidade |-> FALSE, provocacao |-> "nenhuma", iniciativa |-> 0],
+  Monstro |-> [classe |-> "monstro", hp |-> 100, tipo |-> "monstros", paralisia |-> "nenhuma", imunidade |-> FALSE, provocacao |-> "nenhuma", iniciativa |-> 0]
 ]
 
 (* iniciativa - d20 para determinar quem começa *)
@@ -65,6 +65,12 @@ Paralisar(attacker, receiver) ==
                      ELSE [criaturas[receiver] EXCEPT !.paralisia = "temporaria"]]
     /\ ultimoAtaque' = [attacker |-> attacker, receiver |-> receiver, type |-> "paralisia"]
 
+Provocar(attacker, receiver) ==
+    /\ criaturas[attacker].tipo /= criaturas[receiver].tipo  (* barbaro não paralisa bárbaro *)
+    /\ criaturas[attacker].classe = "barbaro"
+    /\ criaturas[receiver].tipo = "monstros"
+    /\ criaturas' = [criaturas EXCEPT ![receiver] = [criaturas[receiver] EXCEPT !.provocacao = "provocado"]]
+    /\ ultimoAtaque' = [attacker |-> attacker, receiver |-> receiver, type |-> "provocacao"]
 
 (*ajudar paralisado - personagens ajudam personagens*)
 Ajudar(attacker, receiver) ==
@@ -85,11 +91,33 @@ atualizarParalisia ==
                   THEN [criaturas[c] EXCEPT !.paralisia = "nenhuma"]
                   ELSE criaturas[c]]
 
+AtacarBarbaro(attacker, receiver) ==
+    LET
+        damageAmount == IF criaturas[attacker].tipo = "monstros" /\ round = 1
+                        THEN 10
+                        ELSE IF criaturas[attacker].tipo = "monstros"
+                        THEN 20
+                        ELSE 10
+    IN
+    /\ criaturas[attacker].tipo = "monstros"
+    /\ criaturas[receiver].classe = "barbaro"
+    /\ criaturas' = [c \in DOMAIN criaturas |-> 
+                     IF c = receiver
+                     THEN dano(c, damageAmount)  (*primeiro aplica o dano*)
+                     ELSE criaturas[c]] 
+    /\ ultimoAtaque' = [attacker |-> attacker, receiver |-> receiver, type |-> "ataque", damage |-> damageAmount]
+
+atualizarProvocacao ==
+    criaturas' = [c \in DOMAIN criaturas |-> 
+                  IF criaturas[c].provocacao = "provocado"
+                  THEN [criaturas[c] EXCEPT !.provocacao = "nenhuma"]
+                  ELSE criaturas[c]]
+
 (* inicialização *)
 Init ==
     /\ criaturas = CRIATURAS
-    /\ ultimoAtaque = [type |-> "", attacker |-> "", receiver |-> "", damage |-> 0, status |-> ""]
     /\ ordemDeAtaque = << >>
+    /\ ultimoAtaque = [type |-> "", attacker |-> "", receiver |-> "", damage |-> 0, status |-> ""]
     /\ proximo = 1         
     /\ round = 1
     /\ inicializado = FALSE
@@ -111,23 +139,27 @@ Next ==
                                      criaturas[r].hp > 0}
            IN
             /\ criaturas[currentAttacker].hp > 0
-            /\ IF criaturas[currentAttacker].paralisia = "nenhuma"
-                THEN 
-                    /\ \E action \in {"ataque", "imunidade", "paralisar", "ajudar"} :
-                        \/ (action = "ataque" /\ \E receiver \in possibleReceivers: Ataque(currentAttacker, receiver))
-                        \/ (criaturas[currentAttacker].classe = "mago" /\ action = "paralisar" /\ \E receiver \in possibleReceivers: Paralisar(currentAttacker, receiver))
-                        \/ (criaturas[currentAttacker].classe = "monstro" /\ action = "paralisar" /\ \E receiver \in possibleReceivers: Paralisar(currentAttacker, receiver))
-                        \/ (criaturas[currentAttacker].tipo = "personagem" /\ action = "ajudar" /\ \E receiver \in possibleReceivers: Ajudar(currentAttacker, receiver))
-                        \/ (criaturas[currentAttacker].classe = "clerigo" /\ action = "imunidade" /\ \E receiver \in possibleReceivers: Imunidade(currentAttacker))
-                ELSE IF criaturas[currentAttacker].paralisia = "temporaria" 
+            /\  IF criaturas[currentAttacker].paralisia = "temporaria" 
                     THEN
                         /\ atualizarParalisia
                         /\ ultimoAtaque' = [type |-> "", attacker |-> "", receiver |-> "", damage |-> 0, status |-> "monstro nao realizou acao pois estava paralisado"]
+                ELSE IF criaturas[currentAttacker].provocacao = "provocado"
+                    THEN 
+                        /\ atualizarProvocacao
+                        /\ ultimoAtaque' = [type |-> "", attacker |-> "", receiver |-> "", damage |-> 0, status |-> "monstro tava provocado"]
+                ELSE IF criaturas[currentAttacker].paralisia = "nenhuma"
+                THEN 
+                    /\ \E action \in {"ataque", "imunidade", "paralisar", "ajudar", "provocar"} :
+                        \/ (action = "ataque" /\ \E receiver \in possibleReceivers: Ataque(currentAttacker, receiver))
+                        \/ (criaturas[currentAttacker].classe = "mago" /\ action = "paralisar" /\ \E receiver \in possibleReceivers: Paralisar(currentAttacker, receiver))
+                        \/ (criaturas[currentAttacker].classe = "monstro" /\ action = "paralisar" /\ \E receiver \in possibleReceivers: Paralisar(currentAttacker, receiver))
+                        \/ (criaturas[currentAttacker].tipo = "personagem" /\ action = "ajudar" /\ \E receiver \in possibleReceivers: Ajudar(currentAttacker, receiver))              
+                        \/ (criaturas[currentAttacker].classe = "barbaro" /\ action = "provocar" /\ \E receiver \in possibleReceivers: Provocar(currentAttacker, receiver))
+                        \/ (criaturas[currentAttacker].classe = "clerigo" /\ action = "imunidade" /\ \E receiver \in possibleReceivers: Imunidade(currentAttacker))       
                 ELSE (* preciso melhorar a atualizacao do ultimo ataque - ta feio mas pelo menos ta falando q foi imunizado ao inves de repetir o ataque anterior *)
                     /\ ultimoAtaque' = [type |-> "", attacker |-> "", receiver |-> "", damage |-> 0, status |-> "personagem nao realizou acao pois esta paralisado"]
                     /\ UNCHANGED <<criaturas>>
             /\ proximo' = IF proximo < Len(ordemDeAtaque) THEN proximo + 1 ELSE 1
             /\ round' = IF proximo' = 1 THEN round + 1 ELSE round
             /\ UNCHANGED <<inicializado>>
-
 ===============================================
