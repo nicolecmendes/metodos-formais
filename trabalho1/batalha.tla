@@ -93,6 +93,12 @@ atualizarParalisia ==
                   THEN [criaturas[c] EXCEPT !.paralisia = "nenhuma"]
                   ELSE criaturas[c]]
 
+atualizarProvocacao ==
+    criaturas' = [c \in DOMAIN criaturas |-> 
+                  IF criaturas[c].provocacao = "provocado"
+                  THEN [criaturas[c] EXCEPT !.provocacao = "nenhuma"]
+                  ELSE criaturas[c]]
+
 (* inicialização *)
 Init ==
     /\ criaturas = CRIATURAS
@@ -138,4 +144,12 @@ Next ==
             /\ proximo' = IF proximo < Len(ordemDeAtaque) THEN proximo + 1 ELSE 1
             /\ round' = IF proximo' = 1 THEN round + 1 ELSE round
             /\ UNCHANGED <<inicializado>>
+
+(* invariantes *)
+MonstroNaoMorre == criaturas["Monstro"].hp > 0
+
+NenhumPersonagemMorre == /\ criaturas["Mago"].hp > 0
+                         /\ criaturas["Clerigo"].hp > 0
+                         /\ criaturas["Barbaro"].hp > 0
+
 ===============================================
