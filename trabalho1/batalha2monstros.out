@@ -2,21 +2,21 @@
 TLC2 Version 2.18 of Day Month 20?? (rev: 7279336)
 @!@!@ENDMSG 2262 @!@!@
 @!@!@STARTMSG 2187:0 @!@!@
-Running breadth-first search Model-Checking with fp 0 and seed -4941019441615449803 with 1 worker on 16 cores with 3593MB heap and 64MB offheap memory [pid: 5828] (Windows 11 10.0 amd64, Oracle Corporation 21.0.1 x86_64, MSBDiskFPSet, DiskStateQueue).
+Running breadth-first search Model-Checking with fp 98 and seed 5265788274521381516 with 1 worker on 16 cores with 3593MB heap and 64MB offheap memory [pid: 23952] (Windows 11 10.0 amd64, Oracle Corporation 21.0.1 x86_64, MSBDiskFPSet, DiskStateQueue).
 @!@!@ENDMSG 2187 @!@!@
 @!@!@STARTMSG 2220:0 @!@!@
 Starting SANY...
 @!@!@ENDMSG 2220 @!@!@
 Parsing file C:\Users\nickm\metodos-formais\trabalho1\batalha2monstros.tla (file:/c:/Users/nickm/metodos-formais/trabalho1/batalha2monstros.tla)
-Parsing file C:\Users\nickm\AppData\Local\Temp\tlc-924757438400471635\Integers.tla (jar:file:/C:/Users/nickm/.vscode/extensions/alygin.vscode-tlaplus-nightly-2024.5.2906/tools/tla2tools.jar!/tla2sany/StandardModules/Integers.tla)
-Parsing file C:\Users\nickm\AppData\Local\Temp\tlc-924757438400471635\Sequences.tla (jar:file:/C:/Users/nickm/.vscode/extensions/alygin.vscode-tlaplus-nightly-2024.5.2906/tools/tla2tools.jar!/tla2sany/StandardModules/Sequences.tla)
-Parsing file C:\Users\nickm\AppData\Local\Temp\tlc-924757438400471635\SequencesExt.tla (jar:file:/C:/Users/nickm/.vscode/extensions/alygin.vscode-tlaplus-nightly-2024.5.2906/tools/CommunityModules-deps.jar!/SequencesExt.tla)
-Parsing file C:\Users\nickm\AppData\Local\Temp\tlc-924757438400471635\TLC.tla (jar:file:/C:/Users/nickm/.vscode/extensions/alygin.vscode-tlaplus-nightly-2024.5.2906/tools/tla2tools.jar!/tla2sany/StandardModules/TLC.tla)
-Parsing file C:\Users\nickm\AppData\Local\Temp\tlc-924757438400471635\Naturals.tla (jar:file:/C:/Users/nickm/.vscode/extensions/alygin.vscode-tlaplus-nightly-2024.5.2906/tools/tla2tools.jar!/tla2sany/StandardModules/Naturals.tla)
-Parsing file C:\Users\nickm\AppData\Local\Temp\tlc-924757438400471635\FiniteSets.tla (jar:file:/C:/Users/nickm/.vscode/extensions/alygin.vscode-tlaplus-nightly-2024.5.2906/tools/tla2tools.jar!/tla2sany/StandardModules/FiniteSets.tla)
-Parsing file C:\Users\nickm\AppData\Local\Temp\tlc-924757438400471635\FiniteSetsExt.tla (jar:file:/C:/Users/nickm/.vscode/extensions/alygin.vscode-tlaplus-nightly-2024.5.2906/tools/CommunityModules-deps.jar!/FiniteSetsExt.tla)
-Parsing file C:\Users\nickm\AppData\Local\Temp\tlc-924757438400471635\Folds.tla (jar:file:/C:/Users/nickm/.vscode/extensions/alygin.vscode-tlaplus-nightly-2024.5.2906/tools/CommunityModules-deps.jar!/Folds.tla)
-Parsing file C:\Users\nickm\AppData\Local\Temp\tlc-924757438400471635\Functions.tla (jar:file:/C:/Users/nickm/.vscode/extensions/alygin.vscode-tlaplus-nightly-2024.5.2906/tools/CommunityModules-deps.jar!/Functions.tla)
+Parsing file C:\Users\nickm\AppData\Local\Temp\tlc-3969332776605192252\Integers.tla (jar:file:/C:/Users/nickm/.vscode/extensions/alygin.vscode-tlaplus-nightly-2024.5.2906/tools/tla2tools.jar!/tla2sany/StandardModules/Integers.tla)
+Parsing file C:\Users\nickm\AppData\Local\Temp\tlc-3969332776605192252\Sequences.tla (jar:file:/C:/Users/nickm/.vscode/extensions/alygin.vscode-tlaplus-nightly-2024.5.2906/tools/tla2tools.jar!/tla2sany/StandardModules/Sequences.tla)
+Parsing file C:\Users\nickm\AppData\Local\Temp\tlc-3969332776605192252\SequencesExt.tla (jar:file:/C:/Users/nickm/.vscode/extensions/alygin.vscode-tlaplus-nightly-2024.5.2906/tools/CommunityModules-deps.jar!/SequencesExt.tla)
+Parsing file C:\Users\nickm\AppData\Local\Temp\tlc-3969332776605192252\TLC.tla (jar:file:/C:/Users/nickm/.vscode/extensions/alygin.vscode-tlaplus-nightly-2024.5.2906/tools/tla2tools.jar!/tla2sany/StandardModules/TLC.tla)
+Parsing file C:\Users\nickm\AppData\Local\Temp\tlc-3969332776605192252\Naturals.tla (jar:file:/C:/Users/nickm/.vscode/extensions/alygin.vscode-tlaplus-nightly-2024.5.2906/tools/tla2tools.jar!/tla2sany/StandardModules/Naturals.tla)
+Parsing file C:\Users\nickm\AppData\Local\Temp\tlc-3969332776605192252\FiniteSets.tla (jar:file:/C:/Users/nickm/.vscode/extensions/alygin.vscode-tlaplus-nightly-2024.5.2906/tools/tla2tools.jar!/tla2sany/StandardModules/FiniteSets.tla)
+Parsing file C:\Users\nickm\AppData\Local\Temp\tlc-3969332776605192252\FiniteSetsExt.tla (jar:file:/C:/Users/nickm/.vscode/extensions/alygin.vscode-tlaplus-nightly-2024.5.2906/tools/CommunityModules-deps.jar!/FiniteSetsExt.tla)
+Parsing file C:\Users\nickm\AppData\Local\Temp\tlc-3969332776605192252\Folds.tla (jar:file:/C:/Users/nickm/.vscode/extensions/alygin.vscode-tlaplus-nightly-2024.5.2906/tools/CommunityModules-deps.jar!/Folds.tla)
+Parsing file C:\Users\nickm\AppData\Local\Temp\tlc-3969332776605192252\Functions.tla (jar:file:/C:/Users/nickm/.vscode/extensions/alygin.vscode-tlaplus-nightly-2024.5.2906/tools/CommunityModules-deps.jar!/Functions.tla)
 Semantic processing of module Naturals
 Semantic processing of module Integers
 Semantic processing of module Sequences
@@ -31,13 +31,13 @@ Semantic processing of module batalha2monstros
 SANY finished.
 @!@!@ENDMSG 2219 @!@!@
 @!@!@STARTMSG 2185:0 @!@!@
-Starting... (2024-05-29 23:18:05)
+Starting... (2024-05-29 23:25:17)
 @!@!@ENDMSG 2185 @!@!@
 @!@!@STARTMSG 2189:0 @!@!@
 Computing initial states...
 @!@!@ENDMSG 2189 @!@!@
 @!@!@STARTMSG 2190:0 @!@!@
-Finished computing initial states: 1 distinct state generated at 2024-05-29 23:18:05.
+Finished computing initial states: 1 distinct state generated at 2024-05-29 23:25:17.
 @!@!@ENDMSG 2190 @!@!@
 @!@!@STARTMSG 1000:1 @!@!@
 TLC threw an unexpected exception.
@@ -105,7 +105,7 @@ expressions at the following positions:
 
 @!@!@ENDMSG 2103 @!@!@
 @!@!@STARTMSG 2200:0 @!@!@
-Progress(1) at 2024-05-29 23:18:06: 1 states generated (49 s/min), 1 distinct states found (49 ds/min), 0 states left on queue.
+Progress(1) at 2024-05-29 23:25:18: 1 states generated (52 s/min), 1 distinct states found (52 ds/min), 0 states left on queue.
 @!@!@ENDMSG 2200 @!@!@
 @!@!@STARTMSG 2199:0 @!@!@
 1 states generated, 1 distinct states found, 0 states left on queue.
@@ -114,5 +114,5 @@ Progress(1) at 2024-05-29 23:18:06: 1 states generated (49 s/min), 1 distinct st
 The depth of the complete state graph search is 1.
 @!@!@ENDMSG 2194 @!@!@
 @!@!@STARTMSG 2186:0 @!@!@
-Finished in 1209ms at (2024-05-29 23:18:06)
+Finished in 1143ms at (2024-05-29 23:25:18)
 @!@!@ENDMSG 2186 @!@!@
